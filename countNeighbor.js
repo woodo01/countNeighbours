@@ -1,11 +1,12 @@
 const board = [[]];
 
-for (const [i, column] of board.entries()) {
-    for (const [j, cell] of column) {
+for (const [i, row] of board.entries()) {
+    for (const [j, cell] of column.entries()) {
         let currentPosition = {
             i,
             j
         }
+
         const neighbourAmount = calcNeibours(currentPosition);
     }
 }
@@ -36,18 +37,18 @@ function getNeighbour(board, currentPosition, horizontalShift, verticalShift) {
         j: currentPosition.j - horizontalShift
     }
 
-    function fixPosition(interval, coordinate) {
-        if (currentPosition.i < 0) {
-            currentPosition.i = board.length - 1;
+    function fixPosition(max, coordinate) {
+        if (coordinate < 0) {
+            coordinate = max;
         }
 
-        if (currentPosition.i > board.length - 1) {
-            currentPosition.i = 0;
+        if (coordinate > max) {
+            coordinate = 0;
         }
     }
 
-    fixPosition([0, board.length], postition.i);
-    fixPosition([0, board[0].length], postition.j);
+    fixPosition(board.length - 1, postition.i);
+    fixPosition(board[0].length - 1, postition.j);
 
     return board[neighborPosition.i][neighborPosition.j];
 }
