@@ -33,11 +33,11 @@ function calcNeibours(currentPosition) {
 
 function getNeighbour(board, currentPosition, horizontalShift, verticalShift) {
     const neighborPosition = {
-        i: currentPosition.i - verticalShift,
-        j: currentPosition.j - horizontalShift
+        i: fixCoordinate(board.length - 1, currentPosition.i - verticalShift),
+        j: fixCoordinate(board[0].length - 1, currentPosition.j - horizontalShift)
     }
 
-    function fixPosition(max, coordinate) {
+    function fixCoordinate(max, coordinate) {
         if (coordinate < 0) {
             coordinate = max;
         }
@@ -45,10 +45,9 @@ function getNeighbour(board, currentPosition, horizontalShift, verticalShift) {
         if (coordinate > max) {
             coordinate = 0;
         }
+        
+        return coordinate;
     }
-
-    fixPosition(board.length - 1, postition.i);
-    fixPosition(board[0].length - 1, postition.j);
 
     return board[neighborPosition.i][neighborPosition.j];
 }
